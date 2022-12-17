@@ -86,9 +86,9 @@ def generate_summary(rawtext, top_n=5):
     #print("Summarize Text: \n", ". ".join(summarize_text))
     return summarize_text
 
-# This was a trial for abstractive summarization using transformers which works well but too slow
-# def abstractive(rawtext):
-#    summarizer = pipeline("summarization")
+ #This was a trial for abstractive summarization using transformers which works well but too slow
+ #def abstractive(rawtext):
+  #  summarizer = pipeline("summarization")
 #    summary = summarizer(rawtext, max_length=300,
 #                         min_length=200, do_sample=False)
 #    summ = summary[0]
@@ -101,17 +101,17 @@ with header:
     st.title('Text Summarization using NLTK')
 
 with body:
-    #st.header('Extractive Summarization')
-    #rawtext = st.text_area('Enter Text Here')
+    st.header('Extractive Summarization')
+    rawtext = st.text_area('Enter Text Here')
 
-    #sample_col, upload_col = st.beta_columns(2)
-    #sample_col.header('Or select a sample file from below')
-    #sample = sample_col.selectbox('Or select a sample file',
-                                  #('kalam_speech.txt', 'Stocks_ FRI_ JUN _8.txt', 'microsoft.txt', 'None'), index=3)
-    #if sample != 'None':
-      #  file = open(sample, "r", encoding= 'cp1252')
-        #st.write(file)
-       # rawtext = file.read()
+    sample_col, upload_col = st.beta_columns(2)
+    sample_col.header('Or select a sample file from below')
+    sample = sample_col.selectbox('Or select a sample file',
+                                  ('kalam_speech.txt', 'Stocks_ FRI_ JUN _8.txt', 'microsoft.txt', 'None'), index=3)
+    if sample != 'None':
+        file = open(sample, "r", encoding= 'cp1252')
+        st.write(file)
+        rawtext = file.read()
 
     upload_col.header('Upload text file here')
     uploaded_file = upload_col.file_uploader(
@@ -119,7 +119,7 @@ with body:
     if uploaded_file is not None:
         rawtext = str(uploaded_file.read(), 'cp1252')
         
-    no_of_lines = st.slider("Select number of lines in summary", 3, 5, 7)
+    no_of_lines = st.slider("Select number of lines in summary", 1, 3, 5)
     if st.button('Get Summary'):
         with summary_container:
             if rawtext == "":
